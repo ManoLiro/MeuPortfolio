@@ -186,7 +186,7 @@ function App() {
       {/* About Section */}
       <section id="sobre" className="py-20 bg-gray-800">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-8 text-blue-400">Sobre Mim</h2>
+          <h2 className="text-3xl font-bold mb-8 text-blue-400">{language === "pt" ? "Sobre Mim" : "About me"}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-4">
               <p className="text-gray-300 leading-relaxed">
