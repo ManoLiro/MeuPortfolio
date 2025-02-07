@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Github, Linkedin, Mail, Terminal, Database, Server, Code2, Cpu, Download, Globe } from 'lucide-react';
+import { Github, Linkedin, Mail, Terminal, Database, Server, Download, Globe, Menu, X } from 'lucide-react';
 
 function App() {
   const [isVisible, setIsVisible] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [language, setLanguage] = useState("en"); // "pt" = Portuguese, "en" = English
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
@@ -67,40 +68,82 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
       {/* Header Navigation */}
-      <header className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-gray-900/95 shadow-lg backdrop-blur-sm' : 'bg-transparent'}`}>
-        <nav className="max-w-6xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600">
-              MS
-            </span>
-            <div className="flex items-center space-x-8">
-              <button
-                onClick={() => scrollToSection('inicio')}
-                className="text-gray-300 hover:text-blue-400 transition-colors"
-              >
+      <header
+        className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? "bg-gray-900/95 shadow-lg backdrop-blur-sm" : "bg-transparent"
+          }`}
+      >
+        <nav className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+          {/* Logo */}
+          <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600">
+            MS
+          </span>
+
+          {/* Desktop Navigation (Hidden on Mobile) */}
+          <div className="hidden md:flex items-center space-x-6">
+            <button onClick={() => scrollToSection("inicio")} className="text-gray-300 hover:text-blue-400 transition-colors">
+              {language === "pt" ? "Início" : "Home"}
+            </button>
+            <button onClick={() => scrollToSection("sobre")} className="text-gray-300 hover:text-blue-400 transition-colors">
+              {language === "pt" ? "Sobre" : "About"}
+            </button>
+            <button onClick={() => scrollToSection("projetos")} className="text-gray-300 hover:text-blue-400 transition-colors">
+              {language === "pt" ? "Projetos" : "Projects"}
+            </button>
+            <button onClick={() => scrollToSection("contato")} className="text-gray-300 hover:text-blue-400 transition-colors">
+              {language === "pt" ? "Contato" : "Contact"}
+            </button>
+
+            {/* Language Toggle Button */}
+            <button
+              onClick={() => setLanguage(language === "pt" ? "en" : "pt")}
+              className="flex items-center space-x-2 px-3 py-2 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors text-white"
+            >
+              <Globe className="w-4 h-4" />
+              <span>{language === "pt" ? "PT" : "EN"}</span>
+            </button>
+
+            {/* CV Download Button */}
+            <button
+              onClick={downloadCV}
+              className="flex items-center space-x-2 px-4 py-2 rounded-full bg-blue-500 hover:bg-blue-600 transition-colors text-white"
+            >
+              <span>{language === "pt" ? "CV Português" : "CV English"}</span>
+              <Download className="w-4 h-4" />
+            </button>
+          </div>
+
+          {/* Mobile Menu Button (Only visible on small screens) */}
+          <button
+            className="md:hidden text-gray-300 hover:text-white transition-colors"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X className="w-8 h-8" /> : <Menu className="w-8 h-8" />}
+          </button>
+        </nav>
+
+        {/* Mobile Menu (Collapsible) */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden bg-gray-900/95 shadow-lg p-4 absolute top-full left-0 w-full">
+            <div className="flex flex-col space-y-4">
+              <button onClick={() => { scrollToSection("inicio"); setIsMobileMenuOpen(false); }} className="text-gray-300 hover:text-blue-400 transition-colors">
                 {language === "pt" ? "Início" : "Home"}
               </button>
-              <button
-                onClick={() => scrollToSection('sobre')}
-                className="text-gray-300 hover:text-blue-400 transition-colors"
-              >
+              <button onClick={() => { scrollToSection("sobre"); setIsMobileMenuOpen(false); }} className="text-gray-300 hover:text-blue-400 transition-colors">
                 {language === "pt" ? "Sobre" : "About"}
               </button>
-              <button
-                onClick={() => scrollToSection('projetos')}
-                className="text-gray-300 hover:text-blue-400 transition-colors"
-              >
+              <button onClick={() => { scrollToSection("projetos"); setIsMobileMenuOpen(false); }} className="text-gray-300 hover:text-blue-400 transition-colors">
                 {language === "pt" ? "Projetos" : "Projects"}
               </button>
-              <button
-                onClick={() => scrollToSection('contato')}
-                className="text-gray-300 hover:text-blue-400 transition-colors"
-              >
+              <button onClick={() => { scrollToSection("contato"); setIsMobileMenuOpen(false); }} className="text-gray-300 hover:text-blue-400 transition-colors">
                 {language === "pt" ? "Contato" : "Contact"}
               </button>
+
               {/* Language Toggle Button */}
               <button
-                onClick={() => setLanguage(language === "pt" ? "en" : "pt")}
+                onClick={() => {
+                  setLanguage(language === "pt" ? "en" : "pt");
+                  setIsMobileMenuOpen(false);
+                }}
                 className="flex items-center space-x-2 px-3 py-2 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors text-white"
               >
                 <Globe className="w-4 h-4" />
@@ -109,7 +152,10 @@ function App() {
 
               {/* CV Download Button */}
               <button
-                onClick={downloadCV}
+                onClick={() => {
+                  downloadCV();
+                  setIsMobileMenuOpen(false);
+                }}
                 className="flex items-center space-x-2 px-4 py-2 rounded-full bg-blue-500 hover:bg-blue-600 transition-colors text-white"
               >
                 <span>{language === "pt" ? "CV Português" : "CV English"}</span>
@@ -117,7 +163,7 @@ function App() {
               </button>
             </div>
           </div>
-        </nav>
+        )}
       </header>
 
       {/* Hero Section */}
