@@ -27,10 +27,11 @@ function App() {
 
   const downloadCV = () => {
     const file = language === "pt"
-      ? { url: "./Documents/CV-PT.pdf", filename: "CV-Portuguese.pdf" }
-      : { url: "./Documents/CV-EN.pdf", filename: "CV-English.pdf" };
+      ? { url: "https://drive.google.com/file/d/1y1vJuFkWzBWZ5m1UImLXIVFlUxOcWZcm/view?usp=sharing", filename: "CV-Portuguese.pdf" }
+      : { url: "https://drive.google.com/file/d/1Lrhy8OdREoN0djnrZ1GR04AsfpDekWa8/view?usp=sharing", filename: "CV-English.pdf" };
 
     const link = document.createElement("a");
+    link.target = "_blank";
     link.href = file.url;
     link.download = file.filename;
     document.body.appendChild(link);
