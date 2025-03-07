@@ -27,8 +27,8 @@ function App() {
 
   const downloadCV = () => {
     const file = language === "pt"
-      ? { url: "../Documents/CV-PT.pdf", filename: "CV-Portuguese.pdf" }
-      : { url: "../Documents/CV-EN.pdf", filename: "CV-English.pdf" };
+      ? { url: "./Documents/CV-PT.pdf", filename: "CV-Portuguese.pdf" }
+      : { url: "./Documents/CV-EN.pdf", filename: "CV-English.pdf" };
 
     const link = document.createElement("a");
     link.href = file.url;
