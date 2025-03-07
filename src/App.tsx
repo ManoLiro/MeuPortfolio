@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Github, Linkedin, Mail, Terminal, Database, Server, Download, Globe, Menu, X } from 'lucide-react';
 
 function App() {
@@ -27,8 +27,8 @@ function App() {
 
   const downloadCV = () => {
     const file = language === "pt"
-      ? { url: "../Documents/Murilo santana CV Portugues.pdf", filename: "CV-Portuguese.pdf" }
-      : { url: "../Documents/Murilo santana CV Inglês.pdf", filename: "CV-English.pdf" };
+      ? { url: "../Documents/CV-PT.pdf", filename: "CV-Portuguese.pdf" }
+      : { url: "../Documents/CV-EN.pdf", filename: "CV-English.pdf" };
 
     const link = document.createElement("a");
     link.href = file.url;
@@ -46,22 +46,22 @@ function App() {
 
   const projects = [
     {
-      title: language === "pt" ? "Sistema de Microserviços" : "Microservices System",
-      description: language === "pt" ? "Arquitetura distribuída com .NET Core e RabbitMQ" : "Distributed architecture with .NET Core and RabbitMQ",
-      tech: ["C#", ".NET", "Docker", "RabbitMQ"],
-      role: language === "pt" ? "Arquiteto Backend" : "Backend Architect"
+      title: language === "pt" ? "Catálogo de Vendas" : "Sales Catalog",
+      description: language === "pt" ? "Catálogo de vendas com .NET Framework e ASP.NET. O projeto consiste em um sistema de catálogo de vendas com autenticação JWT, CRUD de produtos e categorias, upload de imagens, e controle de acesso por perfis de usuário." : "Sales catalog with .NET Framework and ASP.NET. The project consists of a sales catalog system with JWT authentication, CRUD of products and categories, image upload, and access control by user profiles.",
+      tech: ["C#", ".NET", "Docker", "RabbitMQ", "API REST", "Swagger", "Entity Framework Core", "SQL Server", "Clean Architecture", "SOLID"],
+      url: "/"
     },
     {
-      title: language === "pt" ? "API de Alta Performance" : "High Performance API",
-      description: language === "pt" ? "REST API com cache distribuído e otimização" : "REST API with distributed cache and optimization",
-      tech: ["Node.js", "Redis", "PostgreSQL"],
-      role: "Tech Lead"
+      title: language === "pt" ? "Promptopia" : "Promptopia",
+      description: language === "pt" ? "Promptopia é uma aplicação web moderna construída com Next.js que permite aos usuários descobrir e compartilhar prompts baseados em IA. Ela funciona como um hub onde os usuários podem criar, explorar, editar e excluir prompts criativos para diversas ferramentas de IA." : "Promptopia is a modern web application built with Next.js that enables users to discover and share AI-powered prompts. It serves as a hub where users can create, browse, edit, and delete creative prompts for various AI tools.",
+      tech: ["Next.js", "MongoDB", "NextAuth.js", "Tailwind CSS", "CRUD", "SOLID"],
+      url: "https://project-promptopia-q4ke.vercel.app"
     },
     {
-      title: language === "pt" ? "Pipeline de Dados" : "Data Pipeline",
-      description: language === "pt" ? "Sistema ETL para processamento em tempo real" : "ETL system for real-time processing",
-      tech: ["Python", "Apache Kafka", "AWS"],
-      role: language === "pt" ? "Desenvolvedor Backend" : "Backend Developer"
+      title: language === "pt" ? "Autoload®" : "Autoload®",
+      description: language === "pt" ? "Autoload, uma plataforma para gestão de terminais de manuseio de líquidos e sólidos a granel. Suporte a modalidades específicas, como rodoviária, ferroviária, marítima e oleoduto." : "Autoload, a platform for managing bulk liquid and solid handling terminals. It supports specific modes such as road, rail, maritime, and pipeline.",
+      tech: ["C#", ".NET", "Vue.Js", "Azure DevOps", "SQL Server", "API REST", "WPF", "SOLID"],
+      url: "https://www.automind.com.br/autoload/"
     }
   ];
 
@@ -173,7 +173,7 @@ function App() {
             Murilo Santana
           </h1>
           <p className="text-xl text-gray-400 font-mono">
-            {language === "pt" ? "Desenvolvedor Back-end" : "Back-end Developer"}
+            {language === "pt" ? "Desenvolvedor" : "Back-end"}
           </p>
           <div className="flex justify-center space-x-4">
             <Terminal className="w-6 h-6 text-blue-400" />
@@ -205,7 +205,7 @@ function App() {
             <div className="space-y-4">
               <h3 className="text-xl font-semibold text-purple-400">{language === "pt" ? "Linguagens de Programação & Ferramentas" : "Programming Languages & Tools"}</h3>
               <div className="flex flex-wrap gap-3">
-                {['C#', '.NET', 'Node.js', 'JavaScript', 'TypeScript', 'SQL Server', 'React', 'Docker'].map((tech) => (
+                {['C#', '.NET', 'Node.js', 'JavaScript', 'TypeScript', 'SQL Server', 'Next.js', 'Docker', "MongoDB", "Azure DevOps"].map((tech) => (
                   <span key={tech} className="px-3 py-1 bg-gray-700 rounded-full text-sm">
                     {tech}
                   </span>
@@ -234,7 +234,7 @@ function App() {
                 key={index}
                 className="bg-gray-800 p-6 rounded-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
               >
-                <h3 className="text-xl font-semibold mb-3 text-purple-400">{project.title}</h3>
+                <h3 className="text-xl font-semibold mb-3 text-purple-400">{project.title} <a target="_blank" href={project.url} className="text-sm font-semibold mb-3 text-blue-400 ml-6">{language === "pt" ? "Acesse Aqui!" : "Access Here!"}</a></h3>
                 <p className="text-gray-400 mb-4">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tech.map((tech) => (
@@ -243,7 +243,6 @@ function App() {
                     </span>
                   ))}
                 </div>
-                <p className="text-sm text-gray-500">{project.role}</p>
               </div>
             ))}
           </div>
